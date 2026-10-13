@@ -32,85 +32,279 @@
 
 		<br>
 
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/fa26">cs184.eecs.berkeley.edu/fa26</a>
+		Link to webpage: <a href="https://cal-cs184-student.github.io/hw2-jw-writeup/">cal-cs184-student.github.io/hw2-jw-writeup/</a>
 
 		<br>
 		
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/fa26">cs184.eecs.berkeley.edu/fa26</a>
+		Link to GitHub repository: <a href="https://github.com/cal-cs184-student/hw2-jw.git">github.com/cal-cs184-student/hw2-jw.git</a>
 
-		<figure>
-			<img src="assets/teapot.png" alt="Teapot" style="width:50%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
+		
 
 		<!--
 		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
-
+		In this assignment I worked on implementing Bezier curves using De Casteljau's algorithm, as well as implementing Phong
+		shading and loop subdivision on full meshes. I quite liked learning about the different effects that edge flipping and splitting
+		could have on a mesh, as just changing the order of a flip and mesh can create wildly different outputs. 
+		<br>
 		<h2>Section I: Bezier Curves and Surfaces</h2>
 
 		<h3>Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		De Casteljau's method is a way to linearly interpolate Bezier curves. Bezier curves will have control points, points on the curve that define how the line curves. 
+		De Casteljau works by connecting a straight line between each neightbouring control point. It then selects a new point on this straight line, 
+		defined by a parameter weight. If the parameter were 0.5, it would make a new point halfway between each original control point. 
+		It then recursively repeats this process until there is only one point left. This final point makes a singular point of the Bezier curve. 
+		By moving the weighted parameter from 0 to 1, we can define the entire Bezier curve.  
+		<br>
+		<br>
+		The algorithm is implemented with one level in this part. Inside a loop, vector math performs each recursive interpolation step. 
+		The loop returns the n - 1 points, which is then passed to an outer method which continues the recursive deepening.  
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
+
+		<p>Below are images showing the recursive steps made by De Casteljau's algorithm</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="Screenshot (179).png" width="400px"/>
 				</td>
 				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="Screenshot (180).png" width="400px"/>
 				</td>
 			  </tr>
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="Screenshot (181).png" width="400px"/>
 				</td>
 				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="Screenshot (182).png" width="400px"/>
+				</td>
+			  </tr>
+			   <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (183).png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (184).png" width="400px"/>
 				</td>
 			  </tr>
 			</table>
 		</div>
-
+		<p>Some more images showing completed recursive steps made by De Casteljau's algorithm, with different parameter t values</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (185).png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (186).png" width="400px"/>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (187).png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (188).png" width="400px"/>
+				</td>
+			  </tr>
+			   <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (189).png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (190).png" width="400px"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		<br>
 		<h3>Part 2: Bezier surfaces with separable 1D de Casteljau</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+		To implement this same algorithm but for full surfaces, we essentially wrap the previous steps within another loop. In more detail, 
+		we now use two parameters u and v, similar to x and y on a 2D plane. The interpolation first works on a row of points, just like 
+		the previous part. It does this for every row, condensing it into a singular column. It finally performs one last interpolation
+		on the column, which returns a single point. This point is combined with the other points made from different u and v values 
+		to create the surface. 
+		<br>
+		<br>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (191).png" width="400px"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		<br>
 		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
 
 		<h3>Part 3: Area-weighted vertex normals</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		First, lets go over the concept of half edges. Typically, if we want to look for all the shapes connected at a vertex, a coordinate system
+		would require us to iterate through all of the shapes to identify which one connects at a vertex. Half edges represent the shared edges between shapes 
+		as directed graphs, allowing us to traverse between edges to find shapes connected to the vertex. 
+		<br>
+		<br>
+		This is important because to make area-weighted vertex normals, we need to find the shapes connected to a vertex. Using the half 
+		edges to traverse between faces, we can extract the positions of all the vertices of each face and make vectors connecting them. Taking
+		the cross product of these vectors makes a new vector, normal to the face. Then doing a weighted average of these face vectors allows us 
+		to assign a value to the vertex, its "vertex normal vector".
+		<br>
+		<br>
+		Why is this important? We have two different shading methods. The first is called flat shading, which just looks at the face normal vector
+		and assigns a light value to it. This creates distinct geometrical lighting, which might be nice for sharp edges but bad for curved, 
+		continuous surfaces. The second is called Phong shading, which makes use of the vertex normals we previously mentioned. It looks at the 
+		vertex normals around a triangle, and does a barycentric interpolation with those three vectors, creating a smooth, gradient shading 
+		effect. 
+		<br>
+		<br>
 
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (192).png" width="400px"/>
+				  <figcaption>Flat Shading</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (194).png" width="400px"/>
+				  <figcaption>Phong Shading</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
 		<h3>Part 4: Edge flip</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+		Edge flipping is a technique that given a quadrilateral formed of two triangles, we simply flip the internal edge to the other two
+		vertices. The purpose of this is that skinny, long triangles are often much harder to smoothly render, we like even, equal shapes. 
+		Therefore, there are times where it can be useful to change the internal edge of a quadrilateral, making it such that instead 
+		of being made of two skinny triangles, it is now made of two triangles that are much closer to equilateral. 
+		<br>
+		<br>
+		This is implemented by first taking a complete snapshot of the half edges and vertices. Basically, lots of copies are made. Then, the 
+		reassignment begins, using a helper method setNeighbours to reassign the inner edgtes, and manually reassigning the outer
+		edges and vertices. 
+		<br>
+		<br>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (197).png" width="400px"/>
+				  <figcaption>Normal Image</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (199).png" width="400px"/>
+				  <figcaption>Image with some edges flipped.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
 		<h3>Part 5: Edge split</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+		Edge splitting works very similarly to edge flipping, but instead of just flipping the edge to the other two vertices, we split the middle
+		edge by connecting its center to the other two vertices with new edges. We are essentially adding new edges to a previous shape, or increasing
+		the number of triangles. This is useful for upscaling, increasing the amount of geometry allows for more detailed textures. 
+		<br>
+		<br>
+		The way that this is implemented is similar to edge flipping, we first take a snapshot of our quadrilateral. Memory is then instantiated
+		for the new edges/vertices that we want to create. Then the half edges are remade/added accordingly with these new faces and edges.
+		Finally, any of the connections with the outside of these faces are manually rewired to fit the new faces that we added. 
+		<br>
+		<br>
+		 <div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (202).png" width="400px"/>
+				  <figcaption>Before</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (203).png" width="400px"/>
+				  <figcaption>After splitting many edges</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		<br>
+		Effect of edge splitting can be much more subtle than edge flipping.
+		<br>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (204).png" width="400px"/>
+				  <figcaption>Image from part 4 with glaring flipped edges</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (206).png" width="400px"/>
+				  <figcaption>After reverting some flips and splitting others</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		<br>
 		<h3>Part 6: Loop subdivision for mesh upsampling</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Loop subdivision is an upsampling method that combines flipping and splitting from the previous parts. Whole increasing the number
+		of faces through splitting does create better texturing, ultimately the position of the vertexes don't really change, the new faces could still recombine
+		into one flat face. Loop subdivision enhances this aspect by slightly pulling on the new center vertex and the surrounding vertices, creating a roundness
+		to the new faces. It also attaches some flipping, ultimately causing the original triangle to split into 4 new triangles, very similar to 
+		the shape of the Triforce from The Legend of Zelda. 
+		<br>
+		<br>
+		The way that this is done is through a three step process. First, the target new vertex positions are calculated before any edge
+		splitting is done. These are also saved in a new location to not affect the edge splitting. Then comes the actual edge splitting, 
+		which is also followed by flipping any edge that connects an old vertex to a new one. The algorithm then does a final pass, overwriting the 
+		vertices' positions with their new positions and resetting the scheme for future loop subdivisions. 
+		<br>
 
-		<h2>(Optional) Section III: Potential Extra Credit - Art Competition: Model something Creative</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
+		<p>Notice how the cube smoothes out, yet also becomes somewhat wonky and not symmetrical</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (210).png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (211).png" width="400px"/>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (212).png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (213).png" width="400px"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		<p>By pre processing and splitting some edges, we can make the cube more symmetrical</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (273).png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (274).png" width="400px"/>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Screenshot (275).png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Screenshot (276).png" width="400px"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		<p>This occurs because the vertices of the cube have different degree values, differing number of edges that are connected
+			to the vertex. If we flattened the surface, it would show many areas of asymmetry. Adding some more edges to the shape and
+			equalizing the degrees of the vertices allows us to create a much more symmetrical cube. 
+		</p>
 		</div>
 	</body>
 </html>
