@@ -28,7 +28,7 @@
 	<body>
 		<div class="container">
 		<h1>CS184/284A Fall 2026 Homework 2 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+		<div style="text-align: center;">Names: Jason Wang</div>
 
 		<br>
 
@@ -53,7 +53,7 @@
 
 		<h3>Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
 		De Casteljau's method is a way to linearly interpolate Bezier curves. Bezier curves will have control points, points on the curve that define how the line curves. 
-		De Casteljau works by connecting a straight line between each neightbouring control point. It then selects a new point on this straight line, 
+		De Casteljau works by connecting a straight line between each neighbouring control point. It then selects a new point on this straight line, 
 		defined by a parameter weight. If the parameter were 0.5, it would make a new point halfway between each original control point. 
 		It then recursively repeats this process until there is only one point left. This final point makes a singular point of the Bezier curve. 
 		By moving the weighted parameter from 0 to 1, we can define the entire Bezier curve.  
@@ -150,7 +150,7 @@
 		<br>
 		This is important because to make area-weighted vertex normals, we need to find the shapes connected to a vertex. Using the half 
 		edges to traverse between faces, we can extract the positions of all the vertices of each face and make vectors connecting them. Taking
-		the cross product of these vectors makes a new vector, normal to the face. Then doing a weighted average of these face vectors allows us 
+		the cross product of these vectors makes a new vector, normal to the face. Then doing an area weighted average of these face vectors allows us 
 		to assign a value to the vertex, its "vertex normal vector".
 		<br>
 		<br>
@@ -184,7 +184,7 @@
 		<br>
 		<br>
 		This is implemented by first taking a complete snapshot of the half edges and vertices. Basically, lots of copies are made. Then, the 
-		reassignment begins, using a helper method setNeighbours to reassign the inner edgtes, and manually reassigning the outer
+		reassignment begins, using a helper method setNeighbors to reassign the inner edges, and manually reassigning the outer
 		edges and vertices. 
 		<br>
 		<br>
@@ -246,8 +246,8 @@
 		</div>
 		<br>
 		<h3>Part 6: Loop subdivision for mesh upsampling</h3>
-		Loop subdivision is an upsampling method that combines flipping and splitting from the previous parts. Whole increasing the number
-		of faces through splitting does create better texturing, ultimately the position of the vertexes don't really change, the new faces could still recombine
+		Loop subdivision is an upsampling method that combines flipping and splitting from the previous parts. While increasing the number
+		of faces through splitting does create better texturing, ultimately the positions of the vertices don't really change, the new faces could still recombine
 		into one flat face. Loop subdivision enhances this aspect by slightly pulling on the new center vertex and the surrounding vertices, creating a roundness
 		to the new faces. It also attaches some flipping, ultimately causing the original triangle to split into 4 new triangles, very similar to 
 		the shape of the Triforce from The Legend of Zelda. 
